@@ -3,27 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.euphemism.ld37;
+package com.euphemism.ld37.scenes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.euphemism.ld37.util.FontManager;
 
 /**
  *
  * @author emilanov
  */
-public abstract class GameScreen {
+public abstract class GameScene {
     protected Viewport viewport;
     protected BitmapFont font;
     protected SpriteBatch batch;
     
     protected int winWidth, winHeight;
     
-    public GameScreen(SpriteBatch batch, Viewport viewport){
+    public GameScene(SpriteBatch batch, Viewport viewport){
         this.font = FontManager.createNewFont(48, "DisposableDroidBB.ttf");
         this.batch = batch;
         this.viewport = viewport;
+        
+        winWidth = Gdx.graphics.getWidth();
+        winHeight = Gdx.graphics.getHeight();
         
     }
     
