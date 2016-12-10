@@ -41,14 +41,14 @@ public class TitleScreen extends GameScreen{
         textButtonStyle = new TextButtonStyle();
         textButtonStyle.font = font;
         button = new TextButton("Button1", textButtonStyle);
+        button.setPosition(winWidth/2, 200);
         stage.addActor(button);
         
         button.addListener(new ChangeListener() {
         @Override
         public void changed (ChangeEvent event, Actor actor) {
             System.out.println("Button Pressed");
-        }
-    });
+        }});
         
     }
     
@@ -58,8 +58,8 @@ public class TitleScreen extends GameScreen{
         font.setColor(Color.BLACK);
         
         batch.begin();
-        font.draw(batch, "BDSM dating sim featuring Bismark.", winWidth*0.2f, winHeight*0.87f);
         stage.draw();
+        font.draw(batch, "BDSM dating sim featuring Bismark.", winWidth*0.2f, winHeight*0.87f);
         batch.end();
     }
     
