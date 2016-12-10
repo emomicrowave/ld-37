@@ -1,3 +1,3 @@
 # Speed dating simulator
 
-## Robot vegan nazis, preppie BDSM guru gym rats, we have them all
+## Preppie BDSM guru gym rats, robot hippie rednecks, we have them all
