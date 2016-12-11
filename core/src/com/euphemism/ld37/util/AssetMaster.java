@@ -8,34 +8,59 @@ package com.euphemism.ld37.util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.utils.Array;
 
 /**
  *
  * @author filaret
  */
-public class AssetMaster{
-    public AssetMaster(){
-    }
+public class AssetMaster {
 
-    public Array<Texture> getTexturesFromFolder(String folder){
-        Array<Texture> returnArray = new Array();        
-        AssetManager manager = new AssetManager();
-        FileHandle directory = Gdx.files.internal(folder);
+    public static Array<Pixmap> getBodies() {
+        return getPixmapsFromFolder("body");
+    }
+    
+    public static Array<Pixmap> getTorso() {
+        return getPixmapsFromFolder("torso");
+    }
+    
+    public static Array<Pixmap> getLegs() {
+        return getPixmapsFromFolder("legs");
+    }    
+    
+    public static Array<Pixmap> getHeads() {
+        return getPixmapsFromFolder("head");
+    }
         
-        for(FileHandle file : directory.list()){
-            if(!file.isDirectory()){
-                manager.load(file.path(), Texture.class);
-            }else if(file.isDirectory()){
-                returnArray.addAll(getTexturesFromFolder(file.path()));
+    public static Array<Pixmap> getMisc() {
+        return getPixmapsFromFolder("misc");
+    }
+    
+    public static Array<Pixmap> getShoes() {
+        return getPixmapsFromFolder("shoes");
+    }
+    
+    public static Array<Pixmap> getPreset() {
+        return getPixmapsFromFolder("preset");
+    }
+    
+    private static Array<Pixmap> getPixmapsFromFolder(String folder) {
+        Array<Pixmap> returnArray = new Array();
+        AssetManager manager = new AssetManager();
+        FileHandle directory = Gdx.files.internal("png/"+folder);
+
+        for (FileHandle file : directory.list()) {
+            if (!file.isDirectory()) {
+                manager.load(file.path(), Pixmap.class);
+            } else if (file.isDirectory()) {
+                returnArray.addAll(getPixmapsFromFolder(file.path()));
             }
         }
-        
+
         manager.finishLoading();
-        manager.getAll(Texture.class, returnArray);
-        
+        manager.getAll(Pixmap.class, returnArray);
+
         return returnArray;
     }
-
 }

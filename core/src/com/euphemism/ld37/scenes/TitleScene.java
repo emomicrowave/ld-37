@@ -38,20 +38,6 @@ public class TitleScene extends GameScene {
 
     public TitleScene(SpriteBatch batch, Viewport viewport) {
         super(batch, viewport);
-        AssetMaster master = new AssetMaster();
-        Array<Texture> body = master.getTexturesFromFolder("png/body");
-        Array<Texture> legs = master.getTexturesFromFolder("png/legs");
-        Array<Texture> torso = master.getTexturesFromFolder("png/torso");
-        Array<Texture> shoes = master.getTexturesFromFolder("png/shoes");
-        Array<Texture> head = master.getTexturesFromFolder("png/head");
-        Array<Texture> misc = master.getTexturesFromFolder("png/misc");
-        Array<Array> allParts = new Array<Array>();
-        allParts.add(body);
-        allParts.add(legs);
-        allParts.add(torso);
-        allParts.add(shoes);
-        allParts.add(misc);
-        allParts.add(head);
 
         stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
@@ -62,15 +48,10 @@ public class TitleScene extends GameScene {
 
         playButton(100, winHeight * 0.3f);
         int pos = 100;
-        while (pos < 1100) {
-            for (Array<Texture> part : allParts) {
-                ActorSprite sprite = new ActorSprite(batch, part.random());
-                sprite.setBounds(pos, 300, 100, 270);
-                stage.addActor(sprite);
-            }
-            pos += 100;
-        }
-
+        Person nextCharacter = new Person();
+        ActorSprite sprite = new ActorSprite(batch, nextCharacter.getRandomTexture());
+        sprite.setBounds(pos, 300, 100, 270);
+        stage.addActor(sprite);
     }
 
     public void draw() {
