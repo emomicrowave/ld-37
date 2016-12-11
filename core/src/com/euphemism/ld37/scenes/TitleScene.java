@@ -7,12 +7,14 @@ package com.euphemism.ld37.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.euphemism.ld37.util.*;
 import static com.euphemism.ld37.util.SceneManager.datingScene;
@@ -23,11 +25,13 @@ import static com.euphemism.ld37.util.SceneManager.datingScene;
  */
 public class TitleScene extends GameScene{
     
-    private Stage stage;
     private TextButton button;
     private TextButtonStyle textButtonStyle;
     
-    private ActorText titleScreenMessage;
+    private ActorText titleScreenMessage; 
+    
+    NinePatch patch;
+    NinePatchDrawable drawPatch;
     
     
     public TitleScene(SpriteBatch batch, Viewport viewport){
@@ -41,7 +45,6 @@ public class TitleScene extends GameScene{
         stage.addActor(titleScreenMessage);
         
         playButton(100, winHeight*0.3f);
-        
         
     }
     
