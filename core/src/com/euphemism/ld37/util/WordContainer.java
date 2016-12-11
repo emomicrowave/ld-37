@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.euphemism.ld37.scenes.GameScene;
 import java.util.ArrayList;
 
 /**
@@ -23,8 +24,9 @@ import java.util.ArrayList;
  * @author emilanov
  */
 public class WordContainer extends Actor{
+    private ArrayList<String> words;
+    private ArrayList<String> wordBubble;
     
-    private ArrayList<TextButton> words;
     private Stage stage;
     private BitmapFont font;
     
@@ -34,11 +36,13 @@ public class WordContainer extends Actor{
     private float lastX;
     private float lastY;
     
+    
     public WordContainer(Stage stage, BitmapFont font){
         this.stage = stage;
         this.font = font;
         this.setBounds(0, 0, 0, 0);
         initializeNinePatch();
+        wordBubble = new ArrayList();
     }
     
     public WordContainer(Stage stage, BitmapFont font, float posX, float posY, float sizeX, float sizeY){
@@ -49,9 +53,13 @@ public class WordContainer extends Actor{
         this.lastX = posX;
         this.lastY = posY;
         initializeNinePatch();
+        wordBubble = new ArrayList();
     }
     
-    public void emptyContainer(){words.clear();}
+    public void emptyContainer(){
+        words.clear();
+        wordBubble.clear();
+    }
     
     public void newWord(final String word){
         
@@ -68,7 +76,18 @@ public class WordContainer extends Actor{
         @Override
         public void changed (ChangeListener.ChangeEvent event, Actor actor) {
             System.out.println(word);
+            //toggleWord(word);
         }});
+    }
+    
+    public String getWordBubble(){
+        String temp = " ";
+        
+        for (String word : wordBubble) {
+            temp += wordBubble + " ";
+        }
+        
+        return temp;
     }
     
     private void initializeNinePatch(){
@@ -97,6 +116,14 @@ public class WordContainer extends Actor{
         }
         else{
             System.out.println("Unable to find place for button " + button.getLabel().toString());
+        }
+    }
+    
+    private void toggleWord(String word){
+        if (wordBubble.contains(word)){
+            wordBubble.remove(word);
+        }else{
+            wordBubble.add(word);
         }
     }
     
