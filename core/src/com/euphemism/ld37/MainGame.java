@@ -28,7 +28,7 @@ public class MainGame extends ApplicationAdapter {
             
             SceneManager.titleScene = new TitleScene(batch, viewport);
             SceneManager.datingScene = new DatingScene(batch, viewport);
-            SceneManager.currentScene = SceneManager.titleScene;
+            SceneManager.switchGameScene(SceneManager.titleScene);
         
 	}
 

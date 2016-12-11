@@ -5,6 +5,7 @@
  */
 package com.euphemism.ld37.util;
 
+import com.badlogic.gdx.Gdx;
 import com.euphemism.ld37.scenes.*;
 
 /**
@@ -16,4 +17,9 @@ public class SceneManager {
     
     public static TitleScene titleScene;
     public static DatingScene datingScene;
+    
+    public static void switchGameScene(GameScene newScene){
+        currentScene = newScene;
+        Gdx.input.setInputProcessor(newScene.stage);
+    }
 }
