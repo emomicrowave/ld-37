@@ -34,6 +34,8 @@ public class DatingScene extends GameScene{
     private ArrayList<String> words;
     private WordContainer wordContainer;
     
+    private TextButton customSpeech;
+    
     public DatingScene(SpriteBatch batch, Viewport viewport){
         super(batch, viewport);
         initializeSprites();
@@ -45,9 +47,14 @@ public class DatingScene extends GameScene{
         wordContainer = new WordContainer(stage, speechFont, 200, 200, 800, 500);
         
         // create a test speech bubble
-        TextButton navySealsCopyPasta = speechBubble("What the fuck did you just fucking say to me you \nlittle bitch? I'll have you know...");
-        navySealsCopyPasta.setPosition(0, 600);
+        TextButton navySealsCopyPasta = speechBubble("What the fuck did you just fucking \nsay to me you \nlittle bitch? I'll have you know...");
+        navySealsCopyPasta.setPosition(600, 490);
         stage.addActor(navySealsCopyPasta);
+        
+        // moreSPeech
+        //customSpeech = speechBubble("");
+        //customSpeech.setPosition(0, 600);
+        //stage.addActor(customSpeech);
         
         wordsClicker();
     }
@@ -66,10 +73,11 @@ public class DatingScene extends GameScene{
         stage.addActor(sprite1);
         stage.addActor(sprite2);
         
-        
     }
     
     public void draw(){
+        //customSpeech.setText(wordContainer.getWordBubble());
+        
         viewport.apply();
         batch.begin();
         stage.draw();
@@ -97,10 +105,5 @@ public class DatingScene extends GameScene{
         for (int i = 0; i < words.size(); i++) {
             wordContainer.newWord(words.get(i));
         }
-    }
-    
-    private void newWord(final String word, int posX, int posY){
-        
-        
     }
 }
