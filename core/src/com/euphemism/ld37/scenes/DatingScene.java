@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.euphemism.ld37.util.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  *
@@ -33,8 +34,14 @@ public class DatingScene extends GameScene{
     
     private ArrayList<String> words;
     private WordContainer wordContainer;
+    private NinePatchDrawable drawPatch;
     
-    private TextButton customSpeech;
+    private TextButton otherSpeech;
+    private TextButton personSpeech;
+    
+    private int lastWordCount;
+    private boolean roundStarted;
+    private Random rng;
     
     public DatingScene(SpriteBatch batch, Viewport viewport){
         super(batch, viewport);
@@ -45,18 +52,21 @@ public class DatingScene extends GameScene{
         
         speechFont = FontManager.createNewFont(30, "DisposableDroidBB.ttf");
         wordContainer = new WordContainer(stage, speechFont, 200, 200, 800, 500);
+        rng = new Random();
+        
+        roundStarted = false;
         
         // create a test speech bubble
-        TextButton navySealsCopyPasta = speechBubble("What the fuck did you just fucking \nsay to me you \nlittle bitch? I'll have you know...");
-        navySealsCopyPasta.setPosition(600, 490);
-        stage.addActor(navySealsCopyPasta);
+        otherSpeech = speechBubble("What the fuck did you just fucking \nsay to me you \nlittle bitch? I'll have you know...");
+        otherSpeech.setPosition(600, 490);
+        stage.addActor(otherSpeech);
         
-        // moreSPeech
-        //customSpeech = speechBubble("");
-        //customSpeech.setPosition(0, 600);
-        //stage.addActor(customSpeech);
+        // moreSpeech
+        personSpeech = speechBubble("");
+        personSpeech.setPosition(300, 490);
+        stage.addActor(personSpeech);
         
-        wordsClicker();
+        buildWordContainer();
     }
     
     private void initializeSprites(){
@@ -76,7 +86,13 @@ public class DatingScene extends GameScene{
     }
     
     public void draw(){
-        //customSpeech.setText(wordContainer.getWordBubble());
+        // Stretches the NinePatch to cover the new or old words
+        if (lastWordCount != wordContainer.wordBubble.size()){
+            resetPlayerSpeech(wordContainer.getWordBubble(), 100, 490);
+            lastWordCount = wordContainer.wordBubble.size();
+        }
+        
+        if (!roundStarted){startRound();}
         
         viewport.apply();
         batch.begin();
@@ -88,7 +104,7 @@ public class DatingScene extends GameScene{
     // stretch a sprite
     private TextButton speechBubble(String message){
         NinePatch patch = new NinePatch(new Texture(Gdx.files.internal("png/other/speechbubble_9patch.png")), 12, 12, 12, 12);
-        NinePatchDrawable drawPatch = new NinePatchDrawable(patch);
+        drawPatch = new NinePatchDrawable(patch);
         
         // Create a new TextButtonStyle
         TextButtonStyle style = new TextButtonStyle(drawPatch, drawPatch, drawPatch, speechFont);
@@ -101,9 +117,35 @@ public class DatingScene extends GameScene{
         return button;
     }
     
-    private void wordsClicker(){
+    private void buildWordContainer(){
         for (int i = 0; i < words.size(); i++) {
             wordContainer.newWord(words.get(i));
         }
+    }
+    
+    private void resetPlayerSpeech(String text, int posX, int posY){
+        personSpeech.remove();
+        personSpeech = speechBubble(text);
+        personSpeech.setPosition(posX, posY);
+        stage.addActor(personSpeech);
+    }
+    
+    private void resetOtherSpeech(String text, int posX, int posY){
+        otherSpeech.remove();
+        otherSpeech = speechBubble(text);
+        otherSpeech.setPosition(posX, posY);
+        stage.addActor(otherSpeech);
+    }
+    
+    private void startTimer(int seconds){
+        
+    }
+    
+    private void startRound(){
+        resetOtherSpeech("What's your favourite movie?", 600, 490);
+        
+        // word limit beween 2 and 5
+        wordContainer.setWordLimit(rng.nextInt(3)+2); 
+        startTimer(60);
     }
 }

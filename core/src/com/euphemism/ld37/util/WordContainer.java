@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.euphemism.ld37.scenes.GameScene;
 import java.util.ArrayList;
 
 /**
@@ -25,7 +24,7 @@ import java.util.ArrayList;
  */
 public class WordContainer extends Actor{
     private ArrayList<String> words;
-    private ArrayList<String> wordBubble;
+    public ArrayList<String> wordBubble;
     
     private Stage stage;
     private BitmapFont font;
@@ -35,6 +34,8 @@ public class WordContainer extends Actor{
     
     private float lastX;
     private float lastY;
+    
+    private int wordLimit;
     
     
     public WordContainer(Stage stage, BitmapFont font){
@@ -66,7 +67,7 @@ public class WordContainer extends Actor{
         TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle(patchNormal, patchPressed, patchPressed, font);
         textButtonStyle.fontColor = Color.BLACK;
         
-        TextButton button = new TextButton(word, textButtonStyle);
+        final TextButton button = new TextButton(word, textButtonStyle);
         setButtonPos(button);
         
         stage.addActor(button);
@@ -76,18 +77,27 @@ public class WordContainer extends Actor{
         @Override
         public void changed (ChangeListener.ChangeEvent event, Actor actor) {
             System.out.println(word);
-            //toggleWord(word);
+            if (!toggleWord(word)){
+                button.setChecked(false);
+            };
         }});
     }
     
     public String getWordBubble(){
         String temp = " ";
+        int counter = 0;
         
         for (String word : wordBubble) {
-            temp += wordBubble + " ";
+            temp += word + " ";
+            if (counter % 2 == 1){ temp += "\n";}
+            counter++;
         }
         
         return temp;
+    }
+    
+    public void setWordLimit(int limit){
+        wordLimit = limit;
     }
     
     private void initializeNinePatch(){
@@ -119,12 +129,14 @@ public class WordContainer extends Actor{
         }
     }
     
-    private void toggleWord(String word){
-        if (wordBubble.contains(word)){
-            wordBubble.remove(word);
-        }else{
+    private boolean toggleWord(String word){
+        if (!wordBubble.contains(word) && wordBubble.size() < wordLimit){
             wordBubble.add(word);
-        }
+            return true;
+        }else{
+            wordBubble.remove(word);
+            return false;
+        }   
     }
     
 }

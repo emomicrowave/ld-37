@@ -76,7 +76,7 @@ public class TitleScene extends GameScene{
         public void changed (ChangeListener.ChangeEvent event, Actor actor) {
             System.out.println("Starting dating sim...");
             
-            SceneManager.currentScene = datingScene;
+            SceneManager.switchGameScene(datingScene);
         }});
     }
     
