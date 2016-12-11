@@ -13,13 +13,7 @@
       </group>
     </open-files>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-      <group>
-        <file>file:/home/emilanov/Developement/Java/ld-37/core/src/com/euphemism/ld37/MainGame.java</file>
-        <file>file:/home/emilanov/Developement/Java/ld-37/core/src/com/euphemism/ld37/scenes/TitleScene.java</file>
-        <file>file:/home/emilanov/Developement/Java/ld-37/core/src/com/euphemism/ld37/scenes/GameScene.java</file>
-        <file>file:/home/emilanov/Developement/Java/ld-37/core/src/com/euphemism/ld37/util/SceneManager.java</file>
-        <file>file:/home/emilanov/Developement/Java/ld-37/core/src/com/euphemism/ld37/scenes/DatingScene.java</file>
-      </group>
+      <group/>
     </open-files>
   </auxiliary>
 </gradle-project-properties>
