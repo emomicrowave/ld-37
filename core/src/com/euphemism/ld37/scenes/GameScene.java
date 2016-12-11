@@ -20,7 +20,7 @@ public abstract class GameScene {
     protected Viewport viewport;
     protected BitmapFont font;
     protected SpriteBatch batch;
-    protected Stage stage;
+    public Stage stage;
     
     protected int winWidth, winHeight;
     
