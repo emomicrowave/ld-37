@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * @author emilanov
  */
 public class WordContainer extends Actor{
-    private ArrayList<String> words;
+    private ArrayList<TextButton> words;
     public ArrayList<String> wordBubble;
     
     private Stage stage;
@@ -44,6 +44,7 @@ public class WordContainer extends Actor{
         this.setBounds(0, 0, 0, 0);
         initializeNinePatch();
         wordBubble = new ArrayList();
+        words = new ArrayList();
     }
     
     public WordContainer(Stage stage, BitmapFont font, float posX, float posY, float sizeX, float sizeY){
@@ -55,11 +56,19 @@ public class WordContainer extends Actor{
         this.lastY = posY;
         initializeNinePatch();
         wordBubble = new ArrayList();
+        words = new ArrayList();
     }
     
     public void emptyContainer(){
+        for (TextButton word : words) {
+            word.remove();
+        }
+        
         words.clear();
         wordBubble.clear();
+        
+        lastX = this.getX();
+        lastY = this.getY();
     }
     
     public void newWord(final String word){
@@ -71,12 +80,14 @@ public class WordContainer extends Actor{
         setButtonPos(button);
         
         stage.addActor(button);
+        words.add(button);
         
         // button function
         button.addListener(new ChangeListener() {
         @Override
         public void changed (ChangeListener.ChangeEvent event, Actor actor) {
-            System.out.println(word);
+            
+            System.out.println(word + " " + wordLimit);
             if (!toggleWord(word)){
                 button.setChecked(false);
             };

@@ -45,4 +45,8 @@ public class ActorText extends Actor {
     public float getLength(){
         return font.getData().spaceWidth*1.3f * text.length();
     }
+    
+    public void setMessage(String message){
+        this.text = message;
+    }
 }
